@@ -52,3 +52,21 @@ $grid-columns: 18;
   height: 32px;
   border-bottom: 2px solid black;
 }
+
+textarea.form-control {
+  border: none;
+}
+
+.form-control {
+  border: none;
+  border-bottom: 2px solid black;
+  border-radius: 0;
+}
+
+.col-form-label {
+  padding-bottom: 0;
+}
+
+.errors {
+  color: red;
+}

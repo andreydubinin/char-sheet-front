@@ -8,7 +8,7 @@
           v-for="(flaw, index) in flaws"
           :key="index"
       >
-        {{ flaw }} {{ index }}
+        <b-input v-model="flaws[index]"></b-input>
       </div>
     </b-col>
   </b-row>
@@ -44,8 +44,6 @@ export default {
   }
 
   .flaw {
-    border-bottom: 2px solid black;
-
     &.flaw-first {
       margin-left: 80px;
     }

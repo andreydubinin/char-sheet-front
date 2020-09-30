@@ -1,9 +1,13 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import AppHeader from "../layout/AppHeader";
-import AppFooter from "../layout/AppFooter";
-import Home from "../views/Home.vue";
-import CharSheet from "../views/CharSheet.vue";
+import AppHeader from "@/layout/AppHeader";
+import AppFooter from "@/layout/AppFooter";
+import Home from "@/views/Home.vue";
+import CharSheetDetail from "@/views/CharSheetDetail";
+import CharSheetCreate from "@/views/CharSheetCreate";
+import Login from "@/views/Login";
+import Logout from "@/views/Logout";
+import Registration from "@/views/Registration";
 
 Vue.use(VueRouter);
 
@@ -13,18 +17,54 @@ const routes = [
     name     : "Home",
     components: {
       header : AppHeader,
-      default: CharSheet,
+      default: Home,
       footer : AppFooter
     }
   },
   {
-    path     : "/about",
-    name     : "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-        import(/* webpackChunkName: "about" */ "../views/About.vue")
+    path: "/charsheet/create",
+    name: "Create Charsheet",
+    components: {
+      header : AppHeader,
+      default: CharSheetCreate,
+      footer : AppFooter
+    },
+  },
+  {
+    path: "/charsheet/:id(\\d+)",
+    name: "Detail",
+    components: {
+      header : AppHeader,
+      default: CharSheetDetail,
+      footer : AppFooter
+    },
+  },
+  {
+    path: "/login",
+    name: "Login",
+    components: {
+      header : AppHeader,
+      default: Login,
+      footer : AppFooter
+    }
+  },
+  {
+    path: "/logout",
+    name: "Logout",
+    components: {
+      header : AppHeader,
+      default: Logout,
+      footer : AppFooter
+    }
+  },
+  {
+    path: "/registration",
+    name: "Registration",
+    components: {
+      header : AppHeader,
+      default: Registration,
+      footer : AppFooter
+    }
   }
 ];
 

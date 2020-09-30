@@ -5,6 +5,10 @@
 npm install
 ```
 
+### Copy config.env.js
+```
+cp ./src/config.env.example.js ./src/config.env.js
+```
 ### Compiles and hot-reloads for development
 ```
 npm run serve

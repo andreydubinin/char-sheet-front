@@ -4,7 +4,7 @@
   </header>
 </template>
 <script>
-  import BaseNav from "../components/BaseNav";
+  import BaseNav from "@/components/BaseNav";
 
   export default {
     components: {

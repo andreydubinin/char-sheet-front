@@ -1,8 +1,8 @@
 <template>
   <b-navbar toggleable="lg" type="dark" variant="dark">
     <b-container>
-      <b-navbar-brand href="#">
-        <img src="img/logo.png" alt="logo" class="logo-header">
+      <b-navbar-brand to="/">
+        <img src="/img/logo.png" alt="logo" class="logo-header">
       </b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -12,24 +12,28 @@
           <b-nav-item href="#">Link</b-nav-item>
           <b-nav-item href="#" disabled>Disabled</b-nav-item>
         </b-navbar-nav>
-
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
-          <b-nav-item-dropdown right>
-            <!-- Using 'button-content' slot -->
-            <template v-slot:button-content>
-              <em>User</em>
-            </template>
-            <b-dropdown-item href="#">Профиль</b-dropdown-item>
-            <b-dropdown-item href="#">Выйти</b-dropdown-item>
-          </b-nav-item-dropdown>
+          <template v-if="authenticated">
+            <b-nav-item-dropdown right>
+              <template v-slot:button-content>
+                <em>{{ login }}</em>
+              </template>
+              <b-dropdown-item to="/me">Профиль</b-dropdown-item>
+              <b-dropdown-item to="/logout">Выйти</b-dropdown-item>
+            </b-nav-item-dropdown>
+          </template>
+          <template v-else>
+            <b-nav-item to="/login">Вход</b-nav-item>
+          </template>
         </b-navbar-nav>
       </b-collapse>
     </b-container>
   </b-navbar>
 </template>
 <script>
-import NavbarToggleButton from "./NavbarToggleButton";
+import NavbarToggleButton from "@/components/NavbarToggleButton";
+import { mapGetters } from 'vuex';
 
 export default {
   name      : "base-nav",
@@ -78,6 +82,12 @@ export default {
     return {
       toggled: false
     };
+  },
+  computed  : {
+    ...mapGetters('AuthStore', ['authenticated', 'user']),
+    login() {
+      return this.user ? this.user.login : '';
+    }
   },
   methods   : {
     onTitleClick (evt) {

@@ -1,12 +1,16 @@
 <template>
   <div class="circle-characteristic position-relative">
     <div class="main-value rounded-circle d-flex position-relative">
-      <div class="value">{{ value }}</div>
+      <div class="value">
+        <b-input v-model="value"></b-input>
+      </div>
       <div class="name">{{ name }}</div>
       <div class="description">{{ description }}</div>
     </div>
     <div class="additional-value-block rounded-circle d-flex" v-if="useAdditionalValue">
-      <div class="value">{{ additionalValue }}</div>
+      <div class="value">
+        <b-input v-model="additionalValue"></b-input>
+      </div>
       <div class="name">{{ additionalName }}</div>
     </div>
   </div>
@@ -39,6 +43,22 @@ export default {
       type   : String,
       default: '111'
     }
+  },
+  data () {
+    return {
+      //localValue          : this.value,
+      localAdditionalValue: this.additionalValue
+    }
+  },
+  computed: {
+    localValue: {
+      get: function() {
+        return this.value
+      },
+      set: function(value) {
+        this.$emit('change', value)
+      }
+    }
   }
 }
 </script>
@@ -47,6 +67,18 @@ export default {
 .circle-characteristic {
   width: 100px;
   font-weight: bold;
+
+  .value {
+    input {
+      border: none;
+      display: inline-block;
+      width: 40px;
+      padding: 0;
+      text-align: center;
+      font-size: 2rem;
+      color: black;
+    }
+  }
 
   .main-value {
     height: 100px;
@@ -58,7 +90,10 @@ export default {
     z-index: 1;
 
     .value {
-      font-size: 2rem;
+      input {
+        width: 40px;
+        font-size: 2rem;
+      }
     }
 
     .name {
@@ -88,7 +123,9 @@ export default {
     border: 4px dashed black;
 
     .value {
-      font-size: 1rem;
+      input {
+        font-size: 1rem;
+      }
     }
 
     .name {

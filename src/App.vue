@@ -11,15 +11,28 @@
 </template>
 
 <script>
-  import { FadeTransition } from "vue2-transitions";
+import { FadeTransition } from "vue2-transitions";
+import { mapActions } from "vuex"
 
-  export default {
-    components: {
-      FadeTransition
-    }
-  };
+export default {
+  components: {
+    FadeTransition
+  },
+  created () {
+    this.$store.dispatch('AuthStore/initRefreshToken')
+        .then(() => {
+          this.fetchUser();
+        })
+        .catch(error => console.log(error));
+  },
+  methods   : {
+    ...mapActions('AuthStore', [
+      'fetchUser',
+    ]),
+  }
+};
 </script>
 
 <style lang="scss">
-  @import "assets/scss/main";
+@import "assets/scss/main";
 </style>

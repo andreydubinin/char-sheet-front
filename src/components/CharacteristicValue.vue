@@ -3,16 +3,16 @@
     <b-row
         class="value-block"
         :class="[
-            `value-${value}`,
+            `value-${valueLocal}`,
         ]"
         :style="style"
         :no-gutters="true"
     >
-      <b-col sm="auto">4</b-col>
-      <b-col sm="auto">6</b-col>
-      <b-col sm="auto">8</b-col>
-      <b-col sm="auto">10</b-col>
-      <b-col sm="auto">12</b-col>
+      <b-col class="value" sm="auto" @click="changeValue(1)">4</b-col>
+      <b-col class="value" sm="auto" @click="changeValue(2)">6</b-col>
+      <b-col class="value" sm="auto" @click="changeValue(3)">8</b-col>
+      <b-col class="value" sm="auto" @click="changeValue(4)">10</b-col>
+      <b-col class="value" sm="auto" @click="changeValue(5)">12</b-col>
     </b-row>
   </div>
 </template>
@@ -46,6 +46,24 @@ export default {
         fontSize  : `${fontSize}px`,
         lineHeight: `${lineHeight}px`
       }
+    },
+    valueLocal: {
+      get() {
+        return this.value;
+      },
+      set (value) {
+        this.$emit('input', value);
+      }
+    }
+  },
+
+  methods: {
+    changeValue(newValue) {
+      if (this.valueLocal === newValue) {
+        this.valueLocal--;
+      } else {
+        this.valueLocal = newValue;
+      }
     }
   }
 }
@@ -58,6 +76,11 @@ export default {
     background-repeat: no-repeat;
     text-align: center;
     margin: 0 auto;
+
+    .value:hover {
+      color: red;
+      cursor: pointer;
+    }
 
     :nth-child(1) {
       width: 20%;

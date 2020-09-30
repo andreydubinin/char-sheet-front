@@ -1,0 +1,42 @@
+import Vue from 'vue';
+import CharSheetDetail from "@/store/modules/CharSheetStore/Detail";
+
+const state = {
+  characteristicList: [],
+  loading           : false
+}
+
+const getters = {
+  characteristicList: state => state.characteristicList,
+  loading           : state => state.loading,
+}
+
+const mutations = {
+  set_characteristicList: (state, payload) => state.characteristicList = payload,
+  set_loading           : (state, payload) => state.loading = payload,
+}
+
+const actions = {
+  fetchCharacteristics ({commit, getters, dispatch}, charsheetId) {
+    return new Promise((resolve, reject) => {
+      Vue.prototype.$http.get(`/characteristics/get-for-charsheet/${charsheetId}`)
+          .then(response => {
+            commit('set_characteristicList', response.data.data);
+            resolve(response);
+          })
+          .catch(error => {
+            reject(error);
+          })
+    })
+  }
+}
+
+export default {
+  namespaced: true,
+  modules   : {},
+  state,
+  getters,
+  mutations,
+  actions,
+}
+
