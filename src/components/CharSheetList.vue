@@ -1,9 +1,9 @@
 <template>
   <div class="charsheet-list">
     <b-overlay :show="loading" rounded="sm">
-      <ul>
+      <ul class="box-list">
         <li v-for="(charsheet, key) in charsheets" :key="key">
-          <b-link :to="`/charsheet/${charsheet.id}`">[{{ charsheet.id }}]{{ charsheet.name }}</b-link>
+          <b-link :to="`/charsheet/${charsheet.id}`"><div class="pip">#{{ charsheet.id }}</div>{{ charsheet.name }}</b-link>
         </li>
         <li>
           <b-link to="/charsheet/create">Создать новый</b-link>
