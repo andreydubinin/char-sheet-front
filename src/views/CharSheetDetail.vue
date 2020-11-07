@@ -73,7 +73,7 @@ import WeaponTable from "@/components/WeaponTable"
 import EquipmentTable from "@/components/EquipmentTable"
 import HealthBlock from "@/components/HealthBlock"
 import { mapGetters, mapActions } from 'vuex'
-import { isArray, debounce, find } from 'lodash'
+import { debounce } from 'lodash'
 import swal from 'sweetalert2'
 import mapVuexFields from "@/mixins/mapVuexFields";
 
@@ -103,32 +103,6 @@ export default {
   computed  : {
     ...mapGetters('CharSheetStore/CharSheetDetail', ['charsheet']),
     ...mapGetters('CharacteristicStore', ['characteristicList']),
-    changeValue () {
-      return debounce(() => {
-        if (this.loading) return;
-
-        this.loading = true;
-
-        this.sendCharSheet()
-            .catch(error => {
-              console.log(error);
-
-              swal.fire(
-                  {
-                    title           : 'Ошибка',
-                    text            : 'Чарник не сохранился',
-                    type            : 'error',
-                    showCloseButton : false,
-                    showCancelButton: false,
-                    focusConfirm    : false,
-                  }
-              )
-            })
-            .finally(() => {
-              this.loading = false;
-            });
-      }, 1000)
-    },
   },
   beforeRouteEnter (to, from, next) {
     Vue.prototype.$store.dispatch('CharSheetStore/CharSheetDetail/getCharSheet', to.params.id)
@@ -146,9 +120,37 @@ export default {
   mounted () {
     this.fetchCharacteristics(this.charsheet.id);
   },
+  created () {
+    this.changeValue = debounce(this.changeValue, 1000);
+  },
   methods   : {
     ...mapActions('CharSheetStore/CharSheetDetail', ['sendCharSheet']),
-    ...mapActions('CharacteristicStore', ['fetchCharacteristics'])
+    ...mapActions('CharacteristicStore', ['fetchCharacteristics']),
+
+    changeValue () {
+      if (this.loading) return;
+
+      this.loading = true;
+
+      this.sendCharSheet()
+          .catch(error => {
+            console.log(error);
+
+            swal.fire(
+                {
+                  title           : 'Ошибка',
+                  text            : 'Чарник не сохранился',
+                  type            : 'error',
+                  showCloseButton : false,
+                  showCancelButton: false,
+                  focusConfirm    : false,
+                }
+            )
+          })
+          .finally(() => {
+            this.loading = false;
+          });
+    }
   }
 }
 </script>

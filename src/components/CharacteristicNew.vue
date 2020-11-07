@@ -44,7 +44,6 @@ export default {
   methods: {
     ...mapActions('CharacteristicStore', ['storeForCharsheet', 'fetchCharacteristics']),
     async submit () {
-      console.log('submit', this.name);
       const isValid = await this.$refs.observer_new_characteristic.validate();
 
       if (isValid) {

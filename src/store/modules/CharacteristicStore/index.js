@@ -38,7 +38,6 @@ const actions = {
     return new Promise((resolve, reject) => {
       Vue.prototype.$http.post(`/characteristics/store-for-charsheet/${rootGetters['CharSheetStore/CharSheetDetail/id']}`, data)
           .then(response => {
-            console.log(response.data.data);
             resolve(response);
           })
           .catch(error => {
