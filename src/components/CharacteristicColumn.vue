@@ -19,7 +19,6 @@
 import CharacteristicValue from "@/components/CharacteristicValue"
 import CharacteristicNew from "@/components/CharacteristicNew"
 import { mapGetters, mapActions } from 'vuex'
-import { find } from 'lodash'
 import mapVuexFields from '@/mixins/mapVuexFields'
 
 export default {
