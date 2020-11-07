@@ -67,7 +67,11 @@ const mutations = {
   set_experience     : (state, payload) => state.charsheet.experience = payload,
   set_injury         : (state, payload) => state.charsheet.injury = payload,
   set_flaws          : (state, payload) => state.charsheet.flaws = payload,
-  set_traits         : (state, payload) => state.charsheet.traits = payload,
+  set_traits         : (state, payload) => {
+    state.charsheet.traits = payload;
+    // этот костыль нужен для нормального отслеживания изменения вложенного массива
+    state.charsheet.traits_json = JSON.stringify(state.charsheet.traits);
+  },
   set_loading        : (state, payload) => state.loading = payload,
   clearState         : (state) => state.charsheet = cloneDeep(emptyData),
 };
@@ -89,6 +93,8 @@ const actions = {
         });
   },
   setCharSheet : (context, charsheet) => {
+    // этот костыль нужен для нормального отслеживания изменения вложенного массива
+    charsheet.traits_json = JSON.stringify(charsheet.traits);
     context.commit('set_charsheet', charsheet);
   },
   sendCharSheet: async ({getters, commit}, payload) => {

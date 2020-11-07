@@ -144,10 +144,7 @@ export default {
     }
   },
   mounted () {
-    this.fetchCharacteristics(this.charsheet.id)
-        .then(response => {
-          let list = response.data.data;
-        });
+    this.fetchCharacteristics(this.charsheet.id);
   },
   methods   : {
     ...mapActions('CharSheetStore/CharSheetDetail', ['sendCharSheet']),
