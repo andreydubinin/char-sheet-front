@@ -2,13 +2,13 @@
   <b-overlay :show="loading" rounded="sm">
     <b-container class="char-sheet">
       <b-row>
-        <b-col sm="12" lg="5" class="m-0 p-0">
+        <b-col sm="18" lg="5" class="d-none d-lg-block m-0 p-0">
           <div class="img-logo"></div>
         </b-col>
-        <b-col sm="12" lg="7">
+        <b-col sm="18" lg="7">
           <char-title></char-title>
         </b-col>
-        <b-col sm="12" lg="6">
+        <b-col sm="18" lg="6">
           <char-slogan></char-slogan>
         </b-col>
       </b-row>
@@ -73,7 +73,7 @@ import WeaponTable from "@/components/WeaponTable"
 import EquipmentTable from "@/components/EquipmentTable"
 import HealthBlock from "@/components/HealthBlock"
 import { mapGetters, mapActions } from 'vuex'
-import { isArray, debounce, find } from 'lodash'
+import { debounce } from 'lodash'
 import swal from 'sweetalert2'
 import mapVuexFields from "@/mixins/mapVuexFields";
 
@@ -103,32 +103,6 @@ export default {
   computed  : {
     ...mapGetters('CharSheetStore/CharSheetDetail', ['charsheet']),
     ...mapGetters('CharacteristicStore', ['characteristicList']),
-    changeValue () {
-      return debounce(() => {
-        if (this.loading) return;
-
-        this.loading = true;
-
-        this.sendCharSheet()
-            .catch(error => {
-              console.log(error);
-
-              swal.fire(
-                  {
-                    title           : 'Ошибка',
-                    text            : 'Чарник не сохранился',
-                    type            : 'error',
-                    showCloseButton : false,
-                    showCancelButton: false,
-                    focusConfirm    : false,
-                  }
-              )
-            })
-            .finally(() => {
-              this.loading = false;
-            });
-      }, 1000)
-    },
   },
   beforeRouteEnter (to, from, next) {
     Vue.prototype.$store.dispatch('CharSheetStore/CharSheetDetail/getCharSheet', to.params.id)
@@ -144,14 +118,39 @@ export default {
     }
   },
   mounted () {
-    this.fetchCharacteristics(this.charsheet.id)
-        .then(response => {
-          let list = response.data.data;
-        });
+    this.fetchCharacteristics(this.charsheet.id);
+  },
+  created () {
+    this.changeValue = debounce(this.changeValue, 1000);
   },
   methods   : {
     ...mapActions('CharSheetStore/CharSheetDetail', ['sendCharSheet']),
-    ...mapActions('CharacteristicStore', ['fetchCharacteristics'])
+    ...mapActions('CharacteristicStore', ['fetchCharacteristics']),
+
+    changeValue () {
+      if (this.loading) return;
+
+      this.loading = true;
+
+      this.sendCharSheet()
+          .catch(error => {
+            console.log(error);
+
+            swal.fire(
+                {
+                  title           : 'Ошибка',
+                  text            : 'Чарник не сохранился',
+                  type            : 'error',
+                  showCloseButton : false,
+                  showCancelButton: false,
+                  focusConfirm    : false,
+                }
+            )
+          })
+          .finally(() => {
+            this.loading = false;
+          });
+    }
   }
 }
 </script>

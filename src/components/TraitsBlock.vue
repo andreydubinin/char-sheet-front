@@ -8,46 +8,25 @@
           </div>
         </b-col>
         <b-col lg="5">
-          <div class="value-field"></div>
-          <div class="value-field"></div>
-        </b-col>
-        <b-col lg="5">
-          <div class="value-field"></div>
-          <div class="value-field"></div>
-        </b-col>
-        <b-col lg="5">
-          <div class="value-field"></div>
-          <div class="value-field"></div>
+          <input-list :value="start" :min-count="2" @input="setValues('start', $event)"></input-list>
         </b-col>
       </b-row>
       <b-row class="mb-4">
         <b-col lg="5">
           <div class="title-field">Новичок</div>
-          <div class="value-field"></div>
-          <div class="value-field"></div>
-          <div class="value-field"></div>
-          <div class="value-field"></div>
+          <input-list :value="beginner" :min-count="4" @input="setValues('beginner', $event)"></input-list>
         </b-col>
         <b-col lg="5">
           <div class="title-field">Закаленный</div>
-          <div class="value-field"></div>
-          <div class="value-field"></div>
-          <div class="value-field"></div>
-          <div class="value-field"></div>
+          <input-list :value="middle" :min-count="4" @input="setValues('middle', $event)"></input-list>
         </b-col>
         <b-col lg="4">
           <div class="title-field">Ветеран</div>
-          <div class="value-field"></div>
-          <div class="value-field"></div>
-          <div class="value-field"></div>
-          <div class="value-field"></div>
+          <input-list :value="veteran" :min-count="4" @input="setValues('veteran', $event)"></input-list>
         </b-col>
         <b-col lg="4">
           <div class="title-field">Герой</div>
-          <div class="value-field"></div>
-          <div class="value-field"></div>
-          <div class="value-field"></div>
-          <div class="value-field"></div>
+          <input-list :value="hero" :min-count="4" @input="setValues('hero', $event)"></input-list>
         </b-col>
       </b-row>
       <b-row class="mb-4">
@@ -57,21 +36,54 @@
           </div>
         </b-col>
         <b-col lg="5">
-          <div class="value-field"></div>
-          <div class="value-field"></div>
-        </b-col>
-        <b-col lg="5">
-          <div class="value-field"></div>
-          <div class="value-field"></div>
-        </b-col>
-        <b-col lg="5">
-          <div class="value-field"></div>
-          <div class="value-field"></div>
+          <input-list :value="legendary" :min-count="2" @input="setValues('legendary', $event)"></input-list>
         </b-col>
       </b-row>
     </b-col>
   </b-row>
 </template>
+
+<script>
+import InputList from "@/components/InputList";
+import mapVuexFields from "@/mixins/mapVuexFields";
+
+export default {
+  mixins    : [mapVuexFields('CharSheetStore/CharSheetDetail', [
+    'traits',
+  ])],
+  components: {
+    InputList
+  },
+  computed  : {
+    start    : function () {
+      return this.traits?.start || [];
+    },
+    beginner : function () {
+      return this.traits?.beginner || [];
+    },
+    middle   : function () {
+      return this.traits?.middle || [];
+    },
+    veteran  : function () {
+      return this.traits?.veteran || [];
+    },
+    hero     : function () {
+      return this.traits?.hero || [];
+    },
+    legendary: function () {
+      return this.traits?.legendary || [];
+    },
+  },
+  methods   : {
+    setValues (key, values) {
+      let traits = this.traits || {};
+
+      traits[key] = values.filter(x => !!x);
+      this.traits = traits;
+    }
+  }
+}
+</script>
 
 <style lang="scss">
 .traits-block {

@@ -13,9 +13,12 @@ const emptyData = {
   step       : null,
   defense    : null,
   resistance : null,
+  shield     : null,
   charisma   : null,
   experience : null,
   injury     : null,
+  wounds     : null,
+  fatigue    : null,
   flaws      : [],
   traits     : [],
 };
@@ -39,9 +42,12 @@ const getters = {
   step           : state => state.charsheet.step,
   defense        : state => state.charsheet.defense,
   resistance     : state => state.charsheet.resistance,
+  shield         : state => state.charsheet.shield,
   charisma       : state => state.charsheet.charisma,
   experience     : state => state.charsheet.experience,
   injury         : state => state.charsheet.injury,
+  wounds         : state => state.charsheet.wounds,
+  fatigue        : state => state.charsheet.fatigue,
   flaws          : state => state.charsheet.flaws,
   traits         : state => state.charsheet.traits,
   loading        : state => state.loading,
@@ -60,11 +66,18 @@ const mutations = {
   set_step           : (state, payload) => state.charsheet.step = payload,
   set_defense        : (state, payload) => state.charsheet.defense = payload,
   set_resistance     : (state, payload) => state.charsheet.resistance = payload,
+  set_shield         : (state, payload) => state.charsheet.shield = payload,
   set_charisma       : (state, payload) => state.charsheet.charisma = payload,
   set_experience     : (state, payload) => state.charsheet.experience = payload,
   set_injury         : (state, payload) => state.charsheet.injury = payload,
+  set_wounds         : (state, payload) => state.charsheet.wounds = payload,
+  set_fatigue        : (state, payload) => state.charsheet.fatigue = payload,
   set_flaws          : (state, payload) => state.charsheet.flaws = payload,
-  set_traits         : (state, payload) => state.charsheet.traits = payload,
+  set_traits         : (state, payload) => {
+    state.charsheet.traits = payload;
+    // этот костыль нужен для нормального отслеживания изменения вложенного массива
+    state.charsheet.traits_json = JSON.stringify(state.charsheet.traits);
+  },
   set_loading        : (state, payload) => state.loading = payload,
   clearState         : (state) => state.charsheet = cloneDeep(emptyData),
 };
@@ -86,6 +99,8 @@ const actions = {
         });
   },
   setCharSheet : (context, charsheet) => {
+    // этот костыль нужен для нормального отслеживания изменения вложенного массива
+    charsheet.traits_json = JSON.stringify(charsheet.traits);
     context.commit('set_charsheet', charsheet);
   },
   sendCharSheet: async ({getters, commit}, payload) => {

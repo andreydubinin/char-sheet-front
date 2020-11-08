@@ -2,14 +2,14 @@
   <div class="circle-characteristic position-relative">
     <div class="main-value rounded-circle d-flex position-relative">
       <div class="value">
-        <b-input v-model="value"></b-input>
+        <b-input v-model.number="valueLocal"></b-input>
       </div>
       <div class="name">{{ name }}</div>
       <div class="description">{{ description }}</div>
     </div>
     <div class="additional-value-block rounded-circle d-flex" v-if="useAdditionalValue">
       <div class="value">
-        <b-input v-model="additionalValue"></b-input>
+        <b-input v-model="additionalValueLocal"></b-input>
       </div>
       <div class="name">{{ additionalName }}</div>
     </div>
@@ -46,17 +46,24 @@ export default {
   },
   data () {
     return {
-      //localValue          : this.value,
       localAdditionalValue: this.additionalValue
     }
   },
   computed: {
-    localValue: {
-      get: function() {
-        return this.value
+    valueLocal: {
+      get() {
+        return this.value;
       },
-      set: function(value) {
-        this.$emit('change', value)
+      set (value) {
+        this.$emit('input', value);
+      }
+    },
+    additionalValueLocal: {
+      get() {
+        return this.additionalValue;
+      },
+      set (value) {
+        this.$emit('input-additional', value);
       }
     }
   }

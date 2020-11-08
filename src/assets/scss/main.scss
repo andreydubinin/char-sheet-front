@@ -31,6 +31,10 @@ $grid-columns: 18;
   td {
     border-top: none;
     border-bottom: 2px solid black;
+
+    .form-control {
+      border: none;
+    }
   }
 }
 
@@ -88,6 +92,7 @@ textarea.form-control {
         text-decoration: none;
         cursor: pointer;
         background-color: #afafaf;
+
         .pip {
           display: block;
           position: absolute;
@@ -105,3 +110,4 @@ textarea.form-control {
     }
   }
 }
+

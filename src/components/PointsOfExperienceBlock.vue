@@ -4,14 +4,32 @@
       <div class="title">Пункты опыта</div>
     </b-col>
     <b-col sm="18" class="points-of-experience d-flex p-0">
+      <!--
+      Оригинальный вариант с пятью кругами, как им пользоваться не понял
       <div class="experience rounded-circle main-circle"></div>
       <div class="experience rounded-circle simple-circle"></div>
       <div class="experience rounded-circle simple-circle"></div>
       <div class="experience rounded-circle simple-circle"></div>
       <div class="experience rounded-circle simple-circle"></div>
+      -->
+      <circle-characteristic v-model="experience" name="" description=""></circle-characteristic>
     </b-col>
   </b-row>
 </template>
+
+<script>
+import CircleCharacteristic from "@/components/CircleCharacteristic"
+import mapVuexFields from '@/mixins/mapVuexFields'
+
+export default {
+  mixins: [mapVuexFields('CharSheetStore/CharSheetDetail', [
+    'experience',
+  ])],
+  components: {
+    CircleCharacteristic
+  }
+}
+</script>
 
 <style lang="scss">
 .points-of-experience-block {

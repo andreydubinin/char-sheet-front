@@ -11,13 +11,14 @@
                             @input="changeCharacteristic(child.id, $event)"
                             :with-number="false"></characteristic-value>
     </div>
+    <characteristic-new :parent-id="characteristicList[index].id"></characteristic-new>
   </b-col>
 </template>
 
 <script>
 import CharacteristicValue from "@/components/CharacteristicValue"
+import CharacteristicNew from "@/components/CharacteristicNew"
 import { mapGetters, mapActions } from 'vuex'
-import { find } from 'lodash'
 import mapVuexFields from '@/mixins/mapVuexFields'
 
 export default {
@@ -25,7 +26,8 @@ export default {
     'characteristics',
   ])],
   components: {
-    CharacteristicValue
+    CharacteristicValue,
+    CharacteristicNew
   },
   props     : {
     index: {

@@ -1,25 +1,40 @@
 <template>
   <b-row class="circle-characteristic-block">
     <b-col>
-      <circle-characteristic :value="0" name="Шаг" description="6"></circle-characteristic>
+      <circle-characteristic v-model="step" name="Шаг" description="6"></circle-characteristic>
     </b-col>
     <b-col>
-      <circle-characteristic :value="0" name="Защита" description="2"></circle-characteristic>
+      <circle-characteristic v-model="defense" name="Защита" description="2"></circle-characteristic>
     </b-col>
     <b-col>
-      <circle-characteristic :value="0" name="Стойкость" description="4" additional-name="Броня" :additional-value="0"
-                             :use-additional-value="true"></circle-characteristic>
+      <circle-characteristic
+          v-model="resistance"
+          name="Стойкость"
+          description="4"
+          additional-name="Броня"
+          :additional-value="shield"
+          :use-additional-value="true"
+          @input-additional="shield = $event"
+      ></circle-characteristic>
     </b-col>
     <b-col>
-      <circle-characteristic :value="0" name="Харизма" description="+0"></circle-characteristic>
+      <circle-characteristic v-model="charisma" name="Харизма" description="+0"></circle-characteristic>
     </b-col>
   </b-row>
 </template>
 
 <script>
 import CircleCharacteristic from "@/components/CircleCharacteristic"
+import mapVuexFields from '@/mixins/mapVuexFields'
 
 export default {
+  mixins: [mapVuexFields('CharSheetStore/CharSheetDetail', [
+    'step',
+    'defense',
+    'resistance',
+    'shield',
+    'charisma',
+  ])],
   components: {
     CircleCharacteristic
   }

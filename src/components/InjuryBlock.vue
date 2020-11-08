@@ -4,15 +4,21 @@
       <div class="title-field">
         Увечья
       </div>
-      <div class="value-field"></div>
-      <div class="value-field"></div>
-      <div class="value-field"></div>
-      <div class="value-field"></div>
-      <div class="value-field"></div>
-      <div class="value-field"></div>
-      <div class="value-field"></div>
+      <input-list v-model="injury" :min-count="7"></input-list>
     </b-col>
   </b-row>
 </template>
 
-<style lang="scss"></style>
+<script>
+import InputList from "@/components/InputList";
+import mapVuexFields from "@/mixins/mapVuexFields";
+
+export default {
+  mixins    : [mapVuexFields('CharSheetStore/CharSheetDetail', [
+    'injury',
+  ])],
+  components: {
+    InputList
+  }
+}
+</script>

@@ -3,17 +3,23 @@ import Vuex from "vuex";
 import CharSheetStore from "@/store/modules/CharSheetStore";
 import AuthStore from "@/store/modules/AuthStore";
 import CharacteristicStore from "@/store/modules/CharacteristicStore";
+import PowerStore from "@/store/modules/PowerStore";
+import WeaponStore from "@/store/modules/WeaponStore";
+import EquipmentStore from "@/store/modules/EquipmentStore";
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
-  state: {},
+  state    : {},
   mutations: {},
-  actions: {},
-  modules: {
+  actions  : {},
+  modules  : {
     CharSheetStore,
     AuthStore,
-    CharacteristicStore
+    CharacteristicStore,
+    PowerStore,
+    WeaponStore,
+    EquipmentStore
   }
 });
 

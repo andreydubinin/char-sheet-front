@@ -1,29 +1,24 @@
 <template>
   <b-row class="flaws-block">
-    <b-col>
+    <b-col sm="18" md="4">
       <div class="flaw-title d-inline">Изъяны</div>
-      <div
-          class="flaw"
-          :class="index === 0 ? 'flaw-first' : 'd-block'"
-          v-for="(flaw, index) in flaws"
-          :key="index"
-      >
-        <b-input v-model="flaws[index]"></b-input>
-      </div>
+    </b-col>
+    <b-col sm="18" md="14">
+      <input-list v-model="flaws" :min-count="3"></input-list>
     </b-col>
   </b-row>
 </template>
 
 <script>
+import InputList from "@/components/InputList";
+import mapVuexFields from "@/mixins/mapVuexFields";
+
 export default {
-  data () {
-    return {
-      flaws: [
-        'asdf',
-        'qwer',
-        'zcxb'
-      ]
-    }
+  mixins    : [mapVuexFields('CharSheetStore/CharSheetDetail', [
+    'flaws',
+  ])],
+  components: {
+    InputList
   }
 }
 </script>
