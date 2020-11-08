@@ -29,8 +29,9 @@ export default {
       isBusy: true,
       fields: [
         {
-          key  : 'name',
-          label: 'Оружие'
+          key    : 'name',
+          label  : 'Оружие',
+          thClass: 'width300'
         },
         {
           key  : 'distance',
@@ -111,3 +112,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.width300 {
+  min-width: 300px;
+}
+</style>

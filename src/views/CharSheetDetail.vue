@@ -2,13 +2,13 @@
   <b-overlay :show="loading" rounded="sm">
     <b-container class="char-sheet">
       <b-row>
-        <b-col sm="12" lg="5" class="m-0 p-0">
+        <b-col sm="18" lg="5" class="d-none d-lg-block m-0 p-0">
           <div class="img-logo"></div>
         </b-col>
-        <b-col sm="12" lg="7">
+        <b-col sm="18" lg="7">
           <char-title></char-title>
         </b-col>
-        <b-col sm="12" lg="6">
+        <b-col sm="18" lg="6">
           <char-slogan></char-slogan>
         </b-col>
       </b-row>
