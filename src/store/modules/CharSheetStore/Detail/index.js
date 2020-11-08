@@ -17,6 +17,8 @@ const emptyData = {
   charisma   : null,
   experience : null,
   injury     : null,
+  wounds     : null,
+  fatigue    : null,
   flaws      : [],
   traits     : [],
 };
@@ -44,6 +46,8 @@ const getters = {
   charisma       : state => state.charsheet.charisma,
   experience     : state => state.charsheet.experience,
   injury         : state => state.charsheet.injury,
+  wounds         : state => state.charsheet.wounds,
+  fatigue        : state => state.charsheet.fatigue,
   flaws          : state => state.charsheet.flaws,
   traits         : state => state.charsheet.traits,
   loading        : state => state.loading,
@@ -66,6 +70,8 @@ const mutations = {
   set_charisma       : (state, payload) => state.charsheet.charisma = payload,
   set_experience     : (state, payload) => state.charsheet.experience = payload,
   set_injury         : (state, payload) => state.charsheet.injury = payload,
+  set_wounds         : (state, payload) => state.charsheet.wounds = payload,
+  set_fatigue        : (state, payload) => state.charsheet.fatigue = payload,
   set_flaws          : (state, payload) => state.charsheet.flaws = payload,
   set_traits         : (state, payload) => {
     state.charsheet.traits = payload;
