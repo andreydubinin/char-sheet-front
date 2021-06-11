@@ -95,7 +95,8 @@ const actions = {
           await dispatch('setCharSheet', data.data);
         })
         .catch(error => {
-          console.error('get charsheet', error)
+          console.error('get charsheet', error);
+          this.$router.push('Login');
         });
   },
   setCharSheet : (context, charsheet) => {

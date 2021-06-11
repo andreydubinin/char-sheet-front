@@ -2,6 +2,7 @@
   <div>
     <h1>Вход</h1>
     <b-overlay :show="loading" rounded="sm">
+      <b-alert :show="error" variant="danger">{{ errorText }}</b-alert>
       <validation-observer ref="observer_login" v-slot="{ invalid }">
         <validation-provider
             name="Логин"
@@ -67,6 +68,7 @@ export default {
       login   : null,
       password: null,
       error   : false,
+      errorText   : '',
       loading : false,
     }
   },
@@ -89,13 +91,9 @@ export default {
               this.$router.push('/')
             })
             .catch(error => {
-              console.log(error);
-              if (error.response.status === 422) {
-                if (error.response.data.hasOwnProperty('errors')) {
-                  let msg = flatten(Object.values(error.response.data.errors));
-                  this.error = msg.join(', ');
-                }
-              }
+              console.log('auth error', error, error.response);
+              this.error = true;
+              this.errorText = error.response.data.error;
             })
             .finally(() => this.loading = false)
       }

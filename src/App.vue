@@ -23,7 +23,10 @@ export default {
         .then(() => {
           this.fetchUser();
         })
-        .catch(error => console.log(error));
+        .catch(error => {
+          console.log('error fetch', error)
+          this.$router.push('Login');
+        });
   },
   methods   : {
     ...mapActions('AuthStore', [
