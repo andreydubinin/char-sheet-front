@@ -17,9 +17,12 @@ const mutations = {
 }
 
 const actions = {
-  create ({commit, dispatch}) {
+  create ({
+            commit,
+            dispatch
+          }, data) {
     return new Promise((resolve, reject) => {
-      Vue.prototype.$http.post('/charsheets')
+      Vue.prototype.$http.post('/charsheets', data)
           .then(response => {
             resolve(response);
           })
@@ -28,7 +31,10 @@ const actions = {
           })
     })
   },
-  fetchList ({commit, dispatch}) {
+  fetchList ({
+               commit,
+               dispatch
+             }) {
     return new Promise((resolve, reject) => {
       Vue.prototype.$http.get('/charsheets')
           .then(response => {

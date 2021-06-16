@@ -1,80 +1,21 @@
 <template>
-  <b-overlay :show="loading" rounded="sm">
-    <b-container class="char-sheet">
-      <b-row>
-        <b-col sm="18" lg="5" class="d-none d-lg-block m-0 p-0">
-          <div class="img-logo"></div>
-        </b-col>
-        <b-col sm="18" lg="7">
-          <char-title></char-title>
-        </b-col>
-        <b-col sm="18" lg="6">
-          <char-slogan></char-slogan>
-        </b-col>
-      </b-row>
-      <b-row>
-        <b-col lg="7">
-          <b-row>
-            <characteristic-column :index="0"></characteristic-column>
-            <characteristic-column :index="1"></characteristic-column>
-          </b-row>
-        </b-col>
-        <b-col lg="11">
-          <b-row>
-            <characteristic-column :index="2"></characteristic-column>
-            <characteristic-column :index="3"></characteristic-column>
-            <characteristic-column :index="4"></characteristic-column>
-          </b-row>
-          <circle-characteristic-block></circle-characteristic-block>
-          <b-row align-v="stretch">
-            <b-col lg="10" offset="1">
-              <flaws-block></flaws-block>
-            </b-col>
-            <b-col lg="7">
-              <points-of-experience></points-of-experience>
-            </b-col>
-          </b-row>
-        </b-col>
-      </b-row>
-      <b-row>
-        <b-col lg="14">
-          <traits-block></traits-block>
-        </b-col>
-        <b-col lg="4">
-          <injury-block></injury-block>
-        </b-col>
-      </b-row>
-      <b-row class="mt-3">
-        <b-col lg="14">
-          <power-table></power-table>
-          <weapon-table></weapon-table>
-          <equipment-table></equipment-table>
-        </b-col>
-        <b-col lg="4">
-          <health-block></health-block>
-        </b-col>
-      </b-row>
-    </b-container>
-  </b-overlay>
+  <div>
+    <template v-if="charsheet.type === typeSavageWorld">
+      <char-sheet-savage-world></char-sheet-savage-world>
+    </template>
+
+    <template v-if="charsheet.type === typeCustom">
+      <char-sheet-custom></char-sheet-custom>
+    </template>
+  </div>
 </template>
 
 <script>
+import CharSheetSavageWorld from "@/components/CharSheetSavageWorld";
+import CharSheetCustom from "@/components/CharSheetCustom";
+import { TYPE_CHARSHEET_SAVAGE_WORLD, TYPE_CHARSHEET_CUSTOM } from "@/constants";
 import Vue from 'vue'
-import CharTitle from "@/components/CharTitle"
-import CharSlogan from "@/components/CharSlogan"
-import CharacteristicColumn from "@/components/CharacteristicColumn"
-import CircleCharacteristicBlock from "@/components/CircleCharacteristicBlock"
-import FlawsBlock from "@/components/FlawsBlock"
-import PointsOfExperience from "@/components/PointsOfExperienceBlock"
-import TraitsBlock from "@/components/TraitsBlock"
-import InjuryBlock from "@/components/InjuryBlock"
-import PowerTable from "@/components/PowerTable"
-import WeaponTable from "@/components/WeaponTable"
-import EquipmentTable from "@/components/EquipmentTable"
-import HealthBlock from "@/components/HealthBlock"
-import { mapGetters, mapActions } from 'vuex'
-import { debounce } from 'lodash'
-import swal from 'sweetalert2'
+import { mapGetters } from 'vuex'
 import mapVuexFields from "@/mixins/mapVuexFields";
 
 export default {
@@ -82,25 +23,16 @@ export default {
     'characteristics',
   ])],
   components: {
-    CharTitle,
-    CharSlogan,
-    CharacteristicColumn,
-    CircleCharacteristicBlock,
-    FlawsBlock,
-    PointsOfExperience,
-    TraitsBlock,
-    InjuryBlock,
-    PowerTable,
-    WeaponTable,
-    EquipmentTable,
-    HealthBlock
+    CharSheetSavageWorld,
+    CharSheetCustom
   },
   data () {
     return {
-      loading: false,
+      typeSavageWorld: TYPE_CHARSHEET_SAVAGE_WORLD,
+      typeCustom     : TYPE_CHARSHEET_CUSTOM,
     }
   },
-  computed  : {
+  computed: {
     ...mapGetters('CharSheetStore/CharSheetDetail', ['charsheet']),
     ...mapGetters('CharacteristicStore', ['characteristicList']),
   },
@@ -108,67 +40,6 @@ export default {
     Vue.prototype.$store.dispatch('CharSheetStore/CharSheetDetail/getCharSheet', to.params.id)
         .then(() => next())
         .catch(error => next(error));
-  },
-  watch     : {
-    charsheet: {
-      deep: true,
-      handler (newValue) {
-        this.changeValue();
-      },
-    }
-  },
-  mounted () {
-    this.fetchCharacteristics(this.charsheet.id);
-  },
-  created () {
-    this.changeValue = debounce(this.changeValue, 1000);
-  },
-  methods   : {
-    ...mapActions('CharSheetStore/CharSheetDetail', ['sendCharSheet']),
-    ...mapActions('CharacteristicStore', ['fetchCharacteristics']),
-
-    changeValue () {
-      if (this.loading) return;
-
-      this.loading = true;
-
-      this.sendCharSheet()
-          .catch(error => {
-            console.log(error);
-
-            swal.fire(
-                {
-                  title           : 'Ошибка',
-                  text            : 'Чарник не сохранился',
-                  type            : 'error',
-                  showCloseButton : false,
-                  showCancelButton: false,
-                  focusConfirm    : false,
-                }
-            )
-          })
-          .finally(() => {
-            this.loading = false;
-          });
-    }
   }
 }
 </script>
-
-<style lang="scss">
-.char-sheet {
-  padding: 3rem 4rem;
-
-  .img-logo {
-    margin-top: 1rem;
-    background-image: url("/img/logo.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: 20px 15px;
-    width: 100%;
-    height: 220px;
-  }
-
-
-}
-</style>

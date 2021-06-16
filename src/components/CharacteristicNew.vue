@@ -16,7 +16,7 @@
             <b-form-input
                 v-model="name"
                 required
-                placeholder="Новая характеристика"
+                :placeholder="parentId ? 'Новая характеристика' : 'Новая основная характ.'"
             ></b-form-input>
           </b-form-group>
         </validation-provider>
@@ -37,8 +37,7 @@ export default {
   },
   props  : {
     parentId: {
-      type    : Number,
-      required: true
+      type: Number,
     }
   },
   methods: {

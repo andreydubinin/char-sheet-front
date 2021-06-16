@@ -21,6 +21,7 @@ const emptyData = {
   fatigue    : null,
   flaws      : [],
   traits     : [],
+  type       : null,
 };
 
 const state = {
@@ -50,6 +51,7 @@ const getters = {
   fatigue        : state => state.charsheet.fatigue,
   flaws          : state => state.charsheet.flaws,
   traits         : state => state.charsheet.traits,
+  type           : state => state.charsheet.type,
   loading        : state => state.loading,
 };
 
@@ -78,6 +80,7 @@ const mutations = {
     // этот костыль нужен для нормального отслеживания изменения вложенного массива
     state.charsheet.traits_json = JSON.stringify(state.charsheet.traits);
   },
+  set_type           : (state, payload) => state.charsheet.type = payload,
   set_loading        : (state, payload) => state.loading = payload,
   clearState         : (state) => state.charsheet = cloneDeep(emptyData),
 };
@@ -88,7 +91,10 @@ const actions = {
     commit('setDraftId', null);
     commit('set_id', null);
   },
-  getCharSheet : async ({commit, dispatch}, charsheetId) => {
+  getCharSheet : async ({
+                          commit,
+                          dispatch
+                        }, charsheetId) => {
     await Vue.prototype.$http.get(`charsheets/${charsheetId}`)
         .then(async response => {
           let {data} = response;
@@ -104,7 +110,10 @@ const actions = {
     charsheet.traits_json = JSON.stringify(charsheet.traits);
     context.commit('set_charsheet', charsheet);
   },
-  sendCharSheet: async ({getters, commit}, payload) => {
+  sendCharSheet: async ({
+                          getters,
+                          commit
+                        }, payload) => {
     if (getters.loading)
       return;
 
@@ -125,7 +134,10 @@ const actions = {
           .finally(() => commit('set_loading', false));
     });
   },
-  updateCharacteristic({ getters, commit }, payload) {
+  updateCharacteristic ({
+                          getters,
+                          commit
+                        }, payload) {
     return new Promise((resolve, reject) => {
       return Vue.prototype.$http.post(`charsheets/set-characteristic/${getters.id}`, payload)
           .then(response => {
