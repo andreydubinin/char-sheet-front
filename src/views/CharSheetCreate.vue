@@ -7,6 +7,9 @@
             <b-link @click="createSavageWorld">Создать чарник Savage world</b-link>
           </li>
           <li>
+            <b-link @click="createCyberpunk">Создать чарник Cyberpunk</b-link>
+          </li>
+          <li>
             <b-link @click="createCustom">Создать кастомный чарник</b-link>
           </li>
         </ul>
@@ -24,7 +27,7 @@
 </template>
 
 <script>
-import { TYPE_CHARSHEET_SAVAGE_WORLD, TYPE_CHARSHEET_CUSTOM } from "@/constants";
+import { TYPE_CHARSHEET_SAVAGE_WORLD, TYPE_CHARSHEET_CUSTOM, TYPE_CHARSHEET_CYBERPUNK } from "@/constants";
 
 export default {
   name: 'CharSheetCreate',
@@ -37,6 +40,9 @@ export default {
   methods: {
     createSavageWorld () {
       this.create(TYPE_CHARSHEET_SAVAGE_WORLD);
+    },
+    createCyberpunk () {
+      this.create(TYPE_CHARSHEET_CYBERPUNK);
     },
     createCustom () {
       this.create(TYPE_CHARSHEET_CUSTOM);

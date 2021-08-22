@@ -15,15 +15,6 @@
         >
           <div class="description">{{ i }}</div>
         </div>
-        <!--<div class="circle circle-3 rounded-circle">
-          <div class="description">-3</div>
-        </div>
-        <div class="circle circle-2 rounded-circle">
-          <div class="description">-2</div>
-        </div>
-        <div class="circle circle-1 rounded-circle active">
-          <div class="description">-1</div>
-        </div>-->
       </div>
 
       <div class="title-field double-border">При смерти</div>
@@ -40,12 +31,6 @@
         >
           <div class="description">{{ value }}</div>
         </div>
-        <!--<div class="circle circle-2 rounded-circle">
-          <div class="description">-1</div>
-        </div>
-        <div class="circle circle-1 rounded-circle">
-          <div class="description">-2</div>
-        </div>-->
       </div>
     </b-col>
     <div class="title-field">Усталость</div>

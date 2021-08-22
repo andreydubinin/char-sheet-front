@@ -1,6 +1,6 @@
 <template>
   <b-overlay :show="loading" rounded="sm">
-    <b-container class="char-sheet">
+    <b-container class="char-sheet savage-char-sheet">
       <b-row>
         <b-col sm="18" lg="5" class="d-none d-lg-block m-0 p-0">
           <div class="img-logo"></div>
@@ -15,15 +15,15 @@
       <b-row>
         <b-col lg="7">
           <b-row>
-            <characteristic-column :index="0"></characteristic-column>
-            <characteristic-column :index="1"></characteristic-column>
+            <characteristic-column :index="'lovkost'"></characteristic-column>
+            <characteristic-column :index="'smekalka'"></characteristic-column>
           </b-row>
         </b-col>
         <b-col lg="11">
           <b-row>
-            <characteristic-column :index="2"></characteristic-column>
-            <characteristic-column :index="3"></characteristic-column>
-            <characteristic-column :index="4"></characteristic-column>
+            <characteristic-column :index="'harakter'"></characteristic-column>
+            <characteristic-column :index="'sila'"></characteristic-column>
+            <characteristic-column :index="'vynoslivost'"></characteristic-column>
           </b-row>
           <circle-characteristic-block></circle-characteristic-block>
           <b-row align-v="stretch">
@@ -162,7 +162,89 @@ export default {
     width: 100%;
     height: 220px;
   }
+}
 
+.savage-char-sheet {
+  .characteristic-value {
+    .value-block {
+      background-size: contain;
+      background-repeat: no-repeat;
+      text-align: center;
+      margin: 0 auto;
 
+      .value:hover {
+        color: red;
+        cursor: pointer;
+      }
+
+      :nth-child(1) {
+        width: 20%;
+        text-align: right;
+      }
+
+      :nth-child(2) {
+        width: 17%;
+        text-align: right;
+        padding-top: 3%;
+      }
+
+      :nth-child(3) {
+        width: 23%;
+        padding-bottom: 3%;
+      }
+
+      :nth-child(4) {
+        width: 15%;
+        text-align: left;
+      }
+
+      :nth-child(5) {
+        width: 20%;
+        padding-right: 5%;
+      }
+    }
+
+    .value-0 {
+      background-image: url("/img/cube_0.png");
+    }
+
+    .value-1 {
+      background-image: url("/img/cube_1.png");
+
+      :nth-child(-n+1) {
+        color: white;
+      }
+    }
+
+    .value-2 {
+      background-image: url("/img/cube_2.png");
+
+      :nth-child(-n+2) {
+        color: white;
+      }
+    }
+
+    .value-3 {
+      background-image: url("/img/cube_3.png");
+
+      :nth-child(-n+3) {
+        color: white;
+      }
+    }
+
+    .value-4 {
+      background-image: url("/img/cube_4.png");
+
+      :nth-child(-n+4) {
+        color: white;
+      }
+    }
+
+    .value-5 {
+      background-image: url("/img/cube_5.png");
+
+      color: white;
+    }
+  }
 }
 </style>

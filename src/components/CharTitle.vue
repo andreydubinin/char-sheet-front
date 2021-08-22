@@ -1,13 +1,15 @@
 <template>
   <div class="char-title">
-    <b-form-group
-        label-cols-sm="auto"
-        label="Имя:"
-        label-align-sm="right"
-        label-for="name-field"
-    >
-      <b-form-input id="name-field" v-model="name"></b-form-input>
-    </b-form-group>
+    <div class="title-block">
+      <b-form-group
+          label-cols-sm="auto"
+          label="Имя:"
+          label-align-sm="right"
+          label-for="name-field"
+      >
+        <b-form-input id="name-field" v-model="name"></b-form-input>
+      </b-form-group>
+    </div>
     <b-form-group
         label-cols-sm="auto"
         label="Игрок:"
