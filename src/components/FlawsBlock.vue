@@ -16,7 +16,7 @@ import mapVuexFields from "@/mixins/mapVuexFields";
 export default {
   props: {
     title: {
-      type: Text,
+      type: String,
       default: 'Изъяны',
     },
     minCount: {

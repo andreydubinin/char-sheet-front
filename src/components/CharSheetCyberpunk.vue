@@ -219,11 +219,11 @@
       </b-row>
       <b-row class="mb-3">
         <b-col sm="18" lg="6">
-          <flaws-block title="Недостатки" min-count="8"></flaws-block>
+          <flaws-block title="Недостатки" :min-count="8"></flaws-block>
         </b-col>
         <b-col sm="18" lg="6">
           <div class="cyber-border">
-            <b-row class="mb-3">
+            <b-row class="mb-3" v-if="characteristicList['chelovechnost']">
               <b-col sm="18">
                 <span class="title-field">Человечность [+Тек x 2]</span>
               </b-col>
@@ -237,7 +237,7 @@
                 ></characteristic-value>
               </b-col>
             </b-row>
-            <b-row class="mb-3">
+            <b-row class="mb-3" v-if="characteristicList['sila-voli']">
               <b-col sm="18">
                 <span class="title-field">Сила воли [+Тек x 1]</span>
               </b-col>
@@ -258,7 +258,7 @@
                 ></characteristic-value>
               </b-col>
             </b-row>
-            <b-row class="mb-3">
+            <b-row class="mb-3" v-if="characteristicList['bio-batareya']">
               <b-col sm="18">
                 <div class="title-field text-center">Био батарея</div>
               </b-col>
